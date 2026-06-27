@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+  
+  --secondary: #e2e8f0;
+  --secondary-foreground: #0f172a;
+  
+  --muted: #64748b;
+  --muted-bg: #f1f5f9;
+  
+  --border: #cbd5e1;
+  --accent: #818cf8;
+}
+
+.dark {
+  --background: #0b0f19;
+  --foreground: #f8fafc;
+  
+  --card: #111827;
+  --card-foreground: #f8fafc;
+  
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  
+  --secondary: #1f2937;
+  --secondary-foreground: #f8fafc;
+  
+  --muted: #94a3b8;
+  --muted-bg: #1e293b;
+  
+  --border: #374151;
+  --accent: #a5b4fc;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-border: var(--border);
+  --color-muted-text: var(--muted);
+  --color-muted-bg: var(--muted-bg);
+  --color-accent: var(--accent);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Animations for sync operations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String               @id @default(uuid())
+  name         String
+  email        String               @unique
+  passwordHash String
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  permissions  DocumentPermission[]
+  documents    Document[]
+}
+
+model Document {
+  id          String               @id @default(uuid())
+  title       String
+  ownerId     String
+  owner       User                 @relation(fields: [ownerId], references: [id])
+  blocks      DocumentBlock[]
+  permissions DocumentPermission[]
+  versions    Version[]
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+}
+
+model DocumentBlock {
+  id         String   @id
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  type       String   // e.g., text, h1, h2, h3, todo, code
+  content    String   // Content text or serialized JSON metadata
+  position   String   // Fractional index string for ordering
+  updatedAt  DateTime @default(now())
+  updatedBy  String   // User ID who made the last change
+  isDeleted  Boolean  @default(false) // Tombstone for deletions
+}
+
+model DocumentPermission {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role       String   // OWNER, EDITOR, VIEWER
+
+  @@unique([documentId, userId])
+}
+
+model Version {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  name       String   // User-defined or auto-generated name
+  blocksData String   // Serialized JSON array of active blocks
+  createdAt  DateTime @default(now())
+  createdBy  String   // Author display name
+}
