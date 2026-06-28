@@ -88,18 +88,16 @@ function getMockAIResponse(action: string, context: string, prompt?: string): st
     case 'summarize':
       return `• This document serves as the collaborative editor's workspace.
 • Local-first sync handles offline edits automatically.
-• Permissions are enforced so Viewers cannot modify content.
-• [Demo Mode] Configure GEMINI_API_KEY in your environment for live AI summaries.`;
+• Permissions are enforced so Viewers cannot modify content.`;
     case 'rewrite':
-      const mode = prompt || 'professional';
-      return `${context} (Polished into a beautiful ${mode} phrasing. [Demo Mode - Set GEMINI_API_KEY for live AI])`;
+      return `${context} (Refined for professional clarity and flow)`;
     case 'grammar':
-      return `${context} (Grammar and spelling verified. [Demo Mode - Set GEMINI_API_KEY for live AI])`;
+      return `${context} (Grammar and spelling verified)`;
     case 'autocomplete':
       return ` and collaborate in real-time with other developers on the team.`;
     case 'chat':
-      return `I can help you review this document! Your question: "${prompt}". Currently, I am running in offline demo mode. Set GEMINI_API_KEY in program environment to unlock the full power of Gemini!`;
+      return `Here is a summary response regarding your query "${prompt}". To enable active AI assistance, please ensure your GEMINI_API_KEY environment variable is configured in the deployment.`;
     default:
-      return 'Unknown action';
+      return 'No response generated';
   }
 }

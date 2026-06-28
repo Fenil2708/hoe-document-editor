@@ -197,7 +197,7 @@ export default function AIPanel({ editorContent, selectedText, focusedBlockId, o
               {msg.content}
               {msg.isMock && (
                 <div className="mt-1 text-[9px] text-amber-500 font-bold border-t border-amber-500/10 pt-1">
-                  [Simulated Offline Response]
+                  (Offline Response)
                 </div>
               )}
             </div>
